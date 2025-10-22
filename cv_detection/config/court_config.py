@@ -84,3 +84,21 @@ class CourtConfiguration:
         else:
             # Default to NBA dimensions
             return self._get_default_vertices()
+    
+    def get_court_bounds(self) -> Tuple[float, float, float, float]:
+        """Get court bounds as (min_x, min_y, max_x, max_y)."""
+        return (0, 0, self.court_length, self.court_width)
+    
+    def is_inside_court(self, x: float, y: float) -> bool:
+        """Check if a point is inside the court bounds."""
+        min_x, min_y, max_x, max_y = self.get_court_bounds()
+        return min_x <= x <= max_x and min_y <= y <= max_y
+    
+    def get_distance_to_basket(self, x: float, y: float, basket_side: str = "left") -> float:
+        """Calculate distance from point to basket."""
+        if basket_side == "left":
+            basket_x, basket_y = self.vertices[self.left_basket_index]
+        else:
+            basket_x, basket_y = self.vertices[self.right_basket_index]
+        
+        return np.sqrt((x - basket_x) ** 2 + (y - basket_y) ** 2)
