@@ -11,3 +11,23 @@ class Shot:
 	distance: float
 	result: bool  # True = made, False = missed
 	team: int  # team/class id for coloring
+
+
+def extract_made(shots: List[Shot]) -> List[Shot]:
+	"""Return only shots that were made (result == True)."""
+	return [shot for shot in shots if shot.result]
+
+
+def extract_xy(shots: List[Shot]) -> np.ndarray:
+	"""Return Nx2 array of shot (x, y) coordinates."""
+	return np.array([[shot.x, shot.y] for shot in shots], dtype=float)
+
+
+def extract_class_id(shots: List[Shot]) -> np.ndarray:
+	"""Return N array of team/class ids."""
+	return np.array([shot.team for shot in shots], dtype=int)
+
+
+def extract_label(shots: List[Shot]) -> np.ndarray:
+	"""Return N array of human-readable distance labels in feet."""
+	return np.array([f"{shot.distance:.2f} ft" for shot in shots], dtype=str)
