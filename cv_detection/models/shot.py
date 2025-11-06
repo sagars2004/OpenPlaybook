@@ -11,6 +11,11 @@ class Shot:
 	distance: float
 	result: bool  # True = made, False = missed
 	team: int  # team/class id for coloring
+	
+	def __str__(self) -> str:
+		"""Return string representation of shot."""
+		result_str = "MADE" if self.result else "MISSED"
+		return f"Shot({result_str}, {self.distance:.1f}ft, team={self.team}, pos=({self.x:.1f}, {self.y:.1f}))"
 
 
 def extract_made(shots: List[Shot]) -> List[Shot]:
