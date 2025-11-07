@@ -58,12 +58,21 @@ class ViewTransformer:
         
         return H
     
-    def transform_points(self, points: Union[np.ndarray, Sequence]) -> np.ndarray:
+    def _apply_transform(self, points: np.ndarray, matrix: np.ndarray) -> np.ndarray:
+        """Helper method to apply transformation matrix to points."""
+        n = points.shape[0]
+        homogeneous = np.ones((n, 3))
+        homogeneous[:, :2] = points
+        transformed = (matrix @ homogeneous.T).T
+        return transformed[:, :2] / transformed[:, 2:3]
+    
+    def transform_points(self, points: Union[np.ndarray, Sequence], inverse: bool = False) -> np.ndarray:
         """
-        Transform points from source coordinate system to target.
+        Transform points between coordinate systems.
         
         Args:
             points: Points to transform as Nx2 array or list of (x, y) tuples
+            inverse: If True, transform from target to source (default: False)
             
         Returns:
             Transformed points as Nx2 array
@@ -75,15 +84,5 @@ class ViewTransformer:
         if points.shape[1] != 2:
             raise ValueError("Points must have shape (N, 2)")
         
-        # Convert to homogeneous coordinates
-        n = points.shape[0]
-        homogeneous = np.ones((n, 3))
-        homogeneous[:, :2] = points
-        
-        # Apply transformation
-        transformed = (self.homography @ homogeneous.T).T
-        
-        # Convert back to Cartesian coordinates
-        transformed = transformed[:, :2] / transformed[:, 2:3]
-        
-        return transformed
+        matrix = self.inverse_homography if inverse else self.homography
+        return self._apply_transform(points, matrix)

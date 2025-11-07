@@ -102,3 +102,20 @@ class CourtConfiguration:
             basket_x, basket_y = self.vertices[self.right_basket_index]
         
         return np.sqrt((x - basket_x) ** 2 + (y - basket_y) ** 2)
+    
+    def get_vertices_array(self) -> np.ndarray:
+        """Get court vertices as numpy array for easier manipulation."""
+        return np.array(self.vertices, dtype=np.float32)
+    
+    def get_basket_position(self, basket_side: str = "left") -> Tuple[float, float]:
+        """
+        Get basket position coordinates.
+        
+        Args:
+            basket_side: "left" or "right"
+            
+        Returns:
+            Tuple of (x, y) coordinates
+        """
+        index = self.left_basket_index if basket_side == "left" else self.right_basket_index
+        return self.vertices[index]

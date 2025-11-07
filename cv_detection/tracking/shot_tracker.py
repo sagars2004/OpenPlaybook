@@ -104,3 +104,30 @@ class ShotEventTracker:
         
         self.last_frame = frame_index
         return events
+    
+    def reset(self):
+        """Reset tracker to initial state."""
+        self.state = "IDLE"
+        self.last_start_frame = -1
+        self.last_made_frame = -1
+        self.last_frame = -1
+        self.jump_shot_count = 0
+        self.layup_dunk_count = 0
+        self.ball_in_basket_count = 0
+    
+    def get_state(self) -> dict:
+        """
+        Get current tracker state (useful for debugging).
+        
+        Returns:
+            Dictionary with current state information
+        """
+        return {
+            "state": self.state,
+            "last_start_frame": self.last_start_frame,
+            "last_made_frame": self.last_made_frame,
+            "last_frame": self.last_frame,
+            "jump_shot_count": self.jump_shot_count,
+            "layup_dunk_count": self.layup_dunk_count,
+            "ball_in_basket_count": self.ball_in_basket_count,
+        }

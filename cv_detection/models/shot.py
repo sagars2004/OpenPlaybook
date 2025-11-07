@@ -36,3 +36,31 @@ def extract_class_id(shots: List[Shot]) -> np.ndarray:
 def extract_label(shots: List[Shot]) -> np.ndarray:
 	"""Return N array of human-readable distance labels in feet."""
 	return np.array([f"{shot.distance:.2f} ft" for shot in shots], dtype=str)
+
+
+def extract_missed(shots: List[Shot]) -> List[Shot]:
+	"""Return only shots that were missed (result == False)."""
+	return [shot for shot in shots if not shot.result]
+
+
+def get_shot_statistics(shots: List[Shot]) -> dict:
+	"""
+	Get statistics about shots.
+	
+	Args:
+		shots: List of Shot objects
+		
+	Returns:
+		Dictionary with shot statistics
+	"""
+	if not shots:
+		return {"total": 0, "made": 0, "missed": 0, "make_percentage": 0.0}
+	
+	made_shots = extract_made(shots)
+	
+	return {
+		"total": len(shots),
+		"made": len(made_shots),
+		"missed": len(shots) - len(made_shots),
+		"make_percentage": len(made_shots) / len(shots) * 100,
+	}
