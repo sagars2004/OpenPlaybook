@@ -14,7 +14,7 @@ from tracking.shot_tracker import ShotEventTracker
 from tracking.keypoint_smoother import KeyPointsSmoother
 from geometry.view_transformer import ViewTransformer
 from geometry.distance_calculator import euclidean_distance
-from models.shot import Shot, extract_made, extract_xy, extract_class_id, extract_label
+from models.shot import Shot, extract_made, extract_xy, extract_class_id
 from visualization.court_drawer import draw_court, draw_made_and_miss_on_court
 from visualization.annotator import create_triangle_annotator, create_text_annotator
 from config.court_config import CourtConfiguration, League, MeasurementUnit

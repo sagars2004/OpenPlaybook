@@ -2,7 +2,7 @@
 Model configuration and constants for detection models.
 """
 import os
-from typing import Optional, Tuple
+from typing import Optional
 from dataclasses import dataclass
 
 
@@ -41,33 +41,6 @@ class ModelConfig:
         if self.court_model_id is None:
             self.court_model_id = os.getenv("COURT_MODEL_ID")
     
-    def get_player_model_source(self) -> Tuple[str, Optional[str]]:
-        """
-        Get player model source (path or ID).
-        
-        Returns:
-            Tuple of (source_type, value) where source_type is 'path' or 'id'
-        """
-        if self.player_model_path:
-            return ("path", self.player_model_path)
-        elif self.player_model_id:
-            return ("id", self.player_model_id)
-        else:
-            raise ValueError("Either player_model_path or player_model_id must be set")
-    
-    def get_court_model_source(self) -> Tuple[str, Optional[str]]:
-        """
-        Get court model source (path or ID).
-        
-        Returns:
-            Tuple of (source_type, value) where source_type is 'path' or 'id'
-        """
-        if self.court_model_path:
-            return ("path", self.court_model_path)
-        elif self.court_model_id:
-            return ("id", self.court_model_id)
-        else:
-            raise ValueError("Either court_model_path or court_model_id must be set")
 
 
 # Default model IDs (from example code)

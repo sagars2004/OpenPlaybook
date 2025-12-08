@@ -94,19 +94,6 @@ class CourtConfiguration:
         min_x, min_y, max_x, max_y = self.get_court_bounds()
         return min_x <= x <= max_x and min_y <= y <= max_y
     
-    def get_distance_to_basket(self, x: float, y: float, basket_side: str = "left") -> float:
-        """Calculate distance from point to basket."""
-        if basket_side == "left":
-            basket_x, basket_y = self.vertices[self.left_basket_index]
-        else:
-            basket_x, basket_y = self.vertices[self.right_basket_index]
-        
-        return np.sqrt((x - basket_x) ** 2 + (y - basket_y) ** 2)
-    
-    def get_vertices_array(self) -> np.ndarray:
-        """Get court vertices as numpy array for easier manipulation."""
-        return np.array(self.vertices, dtype=np.float32)
-    
     def get_basket_position(self, basket_side: str = "left") -> Tuple[float, float]:
         """
         Get basket position coordinates.
