@@ -4,6 +4,7 @@ import { Route, Routes } from 'react-router-dom';
 import { Layout } from './components/Layout';
 import { Footer } from './components/Footer';
 import { Home } from './components/Home';
+import { Playbook } from './components/Playbook';
 import './custom.css';
 
 export default class App extends Component {
@@ -15,6 +16,7 @@ export default class App extends Component {
         <Layout>
           <Routes>
             <Route path='/' element={<Home />} />
+            <Route path='/playbook' element={<Playbook />} />
           </Routes>
         </Layout>
         <Footer />
